@@ -4,7 +4,7 @@ import { getDashboard, getOpportunities } from "../api/marketOpsApi";
 import { ErrorState, LoadingState } from "../components/ui/Feedback";
 import MetricCard from "../components/ui/MetricCard";
 
-const money = (value: number) => new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(value || 0);
+const money = (value: number) => new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(Number(value || 0));
 
 export default function DashboardPage() {
   const dashboard = useQuery({ queryKey: ["dashboard"], queryFn: getDashboard });
@@ -12,17 +12,19 @@ export default function DashboardPage() {
 
   if (dashboard.isLoading) return <LoadingState text="Cargando operación..."/>;
   if (dashboard.isError) return <ErrorState error={dashboard.error}/>;
+  if (!dashboard.data?.capital) return <ErrorState error={new Error("La respuesta del dashboard no contiene información de capital. Revisa VITE_API_URL y el endpoint /api/dashboard.")}/>;
 
   const data = dashboard.data;
+  const capital = data.capital;
   const rows = opportunities.data || [];
 
   return <div>
     <header className="page-header"><div><p className="eyebrow">OPERACIÓN ACTUAL</p><h1>Tu capital, trabajando.</h1><p className="subtitle">Los datos de esta pantalla ya vienen del backend.</p></div></header>
 
     <section className="metrics">
-      <MetricCard label="Capital inicial" value={money(data.capital.initial)} helper="Base de operación"/>
-      <MetricCard label="Disponible" value={money(data.capital.available)} helper="Efectivo líquido"/>
-      <MetricCard label="Inventario" value={money(data.capital.inventoryValue)} helper="A costo promedio"/>
+      <MetricCard label="Capital inicial" value={money(capital.initial)} helper="Base de operación"/>
+      <MetricCard label="Disponible" value={money(capital.available)} helper="Efectivo líquido"/>
+      <MetricCard label="Inventario" value={money(capital.inventoryValue)} helper="A costo promedio"/>
       <MetricCard label="Compras activas" value={String(data.activePurchases || 0)} helper="Ordenadas / tránsito"/>
     </section>
 
@@ -40,7 +42,7 @@ export default function DashboardPage() {
       <article className="panel dark-panel">
         <div className="trend-icon"><TrendingUp size={22}/></div><p className="eyebrow">ESTADO</p><h2>{data.season?.name || "Temporada"}</h2>
         <p>MarketOps ya puede reflejar capital, compras e inventario almacenados en PostgreSQL.</p>
-        <div className="suggestion"><span>Efectivo disponible</span><strong>{money(data.capital.available)}</strong><small>{data.activePurchases || 0} compras activas</small></div>
+        <div className="suggestion"><span>Efectivo disponible</span><strong>{money(capital.available)}</strong><small>{data.activePurchases || 0} compras activas</small></div>
         <button className="lime-btn" onClick={() => window.location.href = "/purchases"}><ShoppingBag size={16}/> Ir a compras</button>
       </article>
     </section>
