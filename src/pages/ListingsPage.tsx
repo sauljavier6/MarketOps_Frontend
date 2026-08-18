@@ -11,7 +11,7 @@ export default function ListingsPage() {
   const [open, setOpen] = useState(false);
   const qc = useQueryClient();
   const listings = useQuery({ queryKey: ["listings"], queryFn: getMarketplaceListings });
-  const products = useQuery({ queryKey: ["products"], queryFn: getProducts });
+  const products = useQuery({ queryKey: ["products"], queryFn: () => getProducts() });
   const status = useQuery({ queryKey: ["meli-status"], queryFn: getMercadoLibreStatus });
 
   const publish = useMutation({
