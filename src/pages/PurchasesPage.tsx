@@ -14,7 +14,7 @@ export default function PurchasesPage() {
   const qc = useQueryClient();
 
   const purchases = useQuery({ queryKey: ["purchases"], queryFn: getPurchases });
-  const products = useQuery({ queryKey: ["products"], queryFn: getProducts });
+  const products = useQuery({ queryKey: ["products"], queryFn: () => getProducts() });
   const suppliers = useQuery({ queryKey: ["suppliers"], queryFn: getSuppliers });
 
   const createMutation = useMutation({
