@@ -11,22 +11,24 @@ export default function FinancePage() {
 
   if (capital.isLoading) return <LoadingState/>;
   if (capital.isError) return <ErrorState error={capital.error}/>;
+  if (!capital.data) return <LoadingState/>;
 
+  const capitalData = capital.data;
   const inventoryValue = (inventory.data || []).reduce((sum, row) => sum + row.inventoryValue, 0);
-  const equity = Number(capital.data.currentCash) + inventoryValue;
+  const equity = Number(capitalData.currentCash) + inventoryValue;
 
   return <div>
     <header className="page-header"><div><p className="eyebrow">CAPITAL</p><h1>Finanzas</h1><p className="subtitle">Movimientos reales registrados por el backend.</p></div></header>
     <section className="metrics">
-      <article className="metric-card"><span>Capital inicial</span><strong>{money(capital.data.initialCapital)}</strong><small>Base</small></article>
-      <article className="metric-card"><span>Efectivo</span><strong>{money(capital.data.currentCash)}</strong><small>Disponible</small></article>
+      <article className="metric-card"><span>Capital inicial</span><strong>{money(capitalData.initialCapital)}</strong><small>Base</small></article>
+      <article className="metric-card"><span>Efectivo</span><strong>{money(capitalData.currentCash)}</strong><small>Disponible</small></article>
       <article className="metric-card"><span>Inventario</span><strong>{money(inventoryValue)}</strong><small>A costo promedio</small></article>
-      <article className="metric-card"><span>Patrimonio operativo</span><strong>{money(equity)}</strong><small className={equity >= capital.data.initialCapital ? "positive" : ""}>Efectivo + inventario</small></article>
+      <article className="metric-card"><span>Patrimonio operativo</span><strong>{money(equity)}</strong><small className={equity >= capitalData.initialCapital ? "positive" : ""}>Efectivo + inventario</small></article>
     </section>
 
     <section className="panel">
       <div className="panel-header"><div><p className="eyebrow">MOVIMIENTOS</p><h2>Flujo de capital</h2></div></div>
-      <div className="movement-list">{capital.data.movements.map((m) => {
+      <div className="movement-list">{capitalData.movements.map((m) => {
         const positive = Number(m.Amount) >= 0;
         return <div className="movement" key={m.ID_CapitalMovement}><div className={positive ? "movement-icon positive-bg" : "movement-icon"}>{positive ? <ArrowDownLeft size={16}/> : <ArrowUpRight size={16}/>}</div><div><b>{m.Notes || m.Type}</b><small>{m.Reference || "Sin referencia"}</small></div><strong className={positive ? "positive" : ""}>{money(m.Amount)}</strong></div>;
       })}</div>
