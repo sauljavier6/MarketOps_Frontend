@@ -33,7 +33,6 @@ export async function createProduct(payload: {
   return data as Product;
 }
 
-
 export async function updateProduct(productId: number, payload: {
   description?: string;
   code?: string;
@@ -99,7 +98,6 @@ export async function getCapital(): Promise<CapitalSummary> {
   return data;
 }
 
-
 export async function updateCapitalBudget(capital: number): Promise<CapitalSummary> {
   const { data } = await api.patch("/capital", { capital });
   return data;
@@ -145,7 +143,7 @@ export async function getDataSourceStatus() {
 }
 
 export async function runAutoDiscovery(payload: { categoryId?: string; maxTrends?: number }) {
-  const { data } = await api.post("/radar/auto-discovery/run", payload);
+  const { data } = await api.post("/radar/auto-discovery/run", payload, { timeout: 120000 });
   return data;
 }
 
