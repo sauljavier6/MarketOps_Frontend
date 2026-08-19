@@ -23,6 +23,7 @@ export async function publishMarketplaceListing(payload:{productId:number;listin
 export async function updateMarketplaceListingStock(listingId:number,quantity:number){const{data}=await api.put(`/marketplaces/mercadolibre/listings/${listingId}/stock`,{quantity});return data as MarketplaceListing;}
 export async function getRadarCandidates(){const{data}=await api.get("/radar/candidates");return data;}
 export async function createRadarCandidate(payload:unknown){const{data}=await api.post("/radar/candidates",payload);return data;}
+export async function researchRadarCandidate(candidateId:number){const{data}=await api.post(`/radar/candidates/${candidateId}/research`,{},{timeout:120000});return data;}
 export async function setRadarSellingCosts(candidateId:number,payload:{marketplaceShipping:number;packagingCost:number;otherSellingCosts:number;source?:string}){const{data}=await api.patch(`/radar/candidates/${candidateId}/selling-costs`,payload);return data;}
 export async function getSupplierOffers(product?:string){const{data}=await api.get("/radar/supplier-offers",{params:product?{product}:undefined});return data;}
 export async function createSupplierOffer(payload:unknown){const{data}=await api.post("/radar/supplier-offers",payload);return data;}
