@@ -1,0 +1,29 @@
+.mobile-header{display:none}.mobile-menu-button,.mobile-close-button{border:0;background:transparent;color:inherit;padding:0;cursor:pointer}.sidebar-backdrop{display:none}
+
+@media(max-width:950px){
+  .shell{display:block;min-height:100vh}
+  .mobile-header{display:flex;position:sticky;top:0;z-index:80;align-items:center;justify-content:space-between;height:68px;padding:0 16px;background:#111914;color:#fff;border-bottom:1px solid #223027}
+  .mobile-brand{margin:0}.mobile-brand .brand-mark{width:36px;height:36px;border-radius:10px}.mobile-brand strong{font-size:14px}.mobile-brand span{font-size:8px}
+  .mobile-menu-button{display:grid;place-items:center;width:40px;height:40px;border-radius:10px;background:#202a24;color:#fff}
+  .sidebar{display:flex;position:fixed;top:0;left:0;z-index:100;width:min(84vw,320px);height:100dvh;padding:22px 18px;background:#111914;transform:translateX(-105%);transition:transform .22s ease;box-shadow:20px 0 60px rgba(0,0,0,.25)}
+  .sidebar.mobile-open{transform:translateX(0)}
+  .sidebar-backdrop{display:block;position:fixed;inset:0;z-index:90;border:0;background:rgba(8,12,10,.5);backdrop-filter:blur(2px)}
+  .sidebar-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .sidebar-header .brand{margin-bottom:22px}
+  .mobile-close-button{display:grid;place-items:center;flex:0 0 auto;width:38px;height:38px;border-radius:10px;background:#202a24;color:#fff}
+  .sidebar-nav{overflow-y:auto;padding-right:4px;padding-bottom:18px}
+  .nav-item{padding:12px;font-size:14px}
+  .sidebar-footer{margin-top:auto;padding-top:10px}
+  .capital-card{margin-top:0}
+  .content{padding:22px 16px 32px}
+  .page-header{gap:14px;flex-direction:column}.page-header h1{font-size:30px}
+}
+
+@media(min-width:951px){.mobile-close-button{display:none}}
+
+@media(max-width:560px){
+  .metrics{grid-template-columns:1fr}
+  .panel{padding:16px}
+  .metric-card{padding:16px}
+  .page-header h1{font-size:27px}
+}
