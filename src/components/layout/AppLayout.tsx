@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { BarChart3, Boxes, BrainCircuit, CircleDollarSign, Database, PackagePlus, PackageSearch, PieChart, Radar, Search, Settings, ShoppingCart, Store, Truck } from "lucide-react";
+import { BarChart3, Boxes, BrainCircuit, CircleDollarSign, Database, Menu, PackagePlus, PackageSearch, PieChart, Radar, Search, Settings, ShoppingCart, Store, Truck, X } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { getCapital } from "../../api/marketOpsApi";
 
@@ -23,16 +24,27 @@ const items = [
 const money = (value: number) => new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(Number(value || 0));
 
 export default function AppLayout() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const capital = useQuery({ queryKey: ["capital"], queryFn: getCapital });
 
+  const closeMobileMenu = () => setMobileMenuOpen(false);
+
   return <div className="shell">
-    <aside className="sidebar">
+    <header className="mobile-header">
+      <div className="brand mobile-brand"><div className="brand-mark">M</div><div><strong>MarketOps</strong><span>Commerce Intelligence</span></div></div>
+      <button className="mobile-menu-button" type="button" aria-label="Abrir menú" onClick={() => setMobileMenuOpen(true)}><Menu size={22}/></button>
+    </header>
+
+    {mobileMenuOpen && <button className="sidebar-backdrop" type="button" aria-label="Cerrar menú" onClick={closeMobileMenu}/>} 
+
+    <aside className={mobileMenuOpen ? "sidebar mobile-open" : "sidebar"}>
       <div className="sidebar-header">
         <div className="brand"><div className="brand-mark">M</div><div><strong>MarketOps</strong><span>Commerce Intelligence</span></div></div>
+        <button className="mobile-close-button" type="button" aria-label="Cerrar menú" onClick={closeMobileMenu}><X size={21}/></button>
       </div>
 
       <nav className="sidebar-nav">
-        {items.map(({ to, label, icon: Icon }) => <NavLink key={to} to={to} end={to === "/"} className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}><Icon size={18}/>{label}</NavLink>)}
+        {items.map(({ to, label, icon: Icon }) => <NavLink key={to} to={to} end={to === "/"} onClick={closeMobileMenu} className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}><Icon size={18}/>{label}</NavLink>)}
       </nav>
 
       <div className="sidebar-footer">
@@ -43,6 +55,7 @@ export default function AppLayout() {
         </div>
       </div>
     </aside>
+
     <main className="content"><Outlet/></main>
   </div>;
 }
