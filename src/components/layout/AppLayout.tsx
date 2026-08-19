@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { BarChart3, Boxes, BrainCircuit, CircleDollarSign, Database, Menu, PackagePlus, PackageSearch, PieChart, Radar, Search, Settings, ShoppingCart, Store, Truck, X } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { getCapital } from "../../api/marketOpsApi";
+import "./AppLayout.mobile.css";
 
 const items = [
   { to: "/", label: "Dashboard", icon: BarChart3 },
