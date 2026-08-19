@@ -4,6 +4,7 @@ import { Calculator, Plus, Search } from "lucide-react";
 import { createRadarCandidate, createSupplierOffer, getCommercialCalendar, getDataSourceStatus, getInvestmentRecommendation, getRadarCandidates, getSupplierOffers, runAutoDiscovery } from "../api/marketOpsApi";
 import { EmptyState, ErrorState, LoadingState } from "../components/ui/Feedback";
 import Modal from "../components/ui/Modal";
+import "./RadarPage.css";
 
 const money = (v?: number | null) => v == null || !Number.isFinite(Number(v)) || Number(v) <= 0 ? "—" : new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(Number(v));
 const pct = (v?: number | null) => v == null || !Number.isFinite(Number(v)) ? "—" : `${Number(v).toFixed(1)}%`;
