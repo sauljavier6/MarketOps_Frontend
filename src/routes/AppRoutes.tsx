@@ -1,19 +1,20 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import AppLayout from "../components/layout/AppLayout";
 import DashboardPage from "../pages/DashboardPage";
+import DataSourcesPage from "../pages/DataSourcesPage";
 import FinancePage from "../pages/FinancePage";
 import InventoryPage from "../pages/InventoryPage";
+import LearningPage from "../pages/LearningPage";
+import ListingsPage from "../pages/ListingsPage";
+import OperationsPage from "../pages/OperationsPage";
+import PortfolioPage from "../pages/PortfolioPage";
 import ProductsPage from "../pages/ProductsPage";
 import PurchasesPage from "../pages/PurchasesPage";
 import RadarPage from "../pages/RadarPage";
-import SettingsPage from "../pages/SettingsPage";
-import ListingsPage from "../pages/ListingsPage";
-import SuppliersPage from "../pages/SuppliersPage";
-import DataSourcesPage from "../pages/DataSourcesPage";
-import SupplierDiscoveryPage from "../pages/SupplierDiscoveryPage";
-import PortfolioPage from "../pages/PortfolioPage";
 import ReplenishmentPage from "../pages/ReplenishmentPage";
-import LearningPage from "../pages/LearningPage";
+import SettingsPage from "../pages/SettingsPage";
+import SupplierDiscoveryPage from "../pages/SupplierDiscoveryPage";
+import SuppliersPage from "../pages/SuppliersPage";
 
 const router = createBrowserRouter([{
   path: "/",
@@ -22,12 +23,20 @@ const router = createBrowserRouter([{
     { index: true, element: <DashboardPage /> },
     { path: "radar", element: <RadarPage /> },
     { path: "portfolio", element: <PortfolioPage /> },
+    {
+      path: "purchases",
+      element: <OperationsPage />,
+      children: [
+        { index: true, element: <PurchasesPage /> },
+        { path: "inventory", element: <InventoryPage /> },
+        { path: "replenishment", element: <ReplenishmentPage /> },
+      ],
+    },
+    { path: "inventory", element: <Navigate to="/purchases/inventory" replace /> },
+    { path: "replenishment", element: <Navigate to="/purchases/replenishment" replace /> },
     { path: "products", element: <ProductsPage /> },
-    { path: "purchases", element: <PurchasesPage /> },
     { path: "suppliers", element: <SuppliersPage /> },
     { path: "sourcing", element: <SupplierDiscoveryPage /> },
-    { path: "inventory", element: <InventoryPage /> },
-    { path: "replenishment", element: <ReplenishmentPage /> },
     { path: "learning", element: <LearningPage /> },
     { path: "finance", element: <FinancePage /> },
     { path: "listings", element: <ListingsPage /> },
