@@ -1,24 +1,16 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { BarChart3, Boxes, BrainCircuit, CircleDollarSign, Database, Menu, PackagePlus, PackageSearch, PieChart, Radar, Search, Settings, ShoppingCart, Store, Truck, X } from "lucide-react";
+import { BarChart3, Boxes, CircleDollarSign, Menu, PieChart, Radar, Settings, Store, X } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { getCapital } from "../../api/marketOpsApi";
 import "./AppLayout.mobile.css";
 
 const items = [
-  { to: "/", label: "Dashboard", icon: BarChart3 },
+  { to: "/", label: "Inicio", icon: BarChart3 },
   { to: "/radar", label: "Radar", icon: Radar },
-  { to: "/portfolio", label: "Cartera", icon: PieChart },
-  { to: "/products", label: "Productos", icon: PackageSearch },
-  { to: "/purchases", label: "Compras", icon: ShoppingCart },
-  { to: "/suppliers", label: "Proveedores", icon: Truck },
-  { to: "/sourcing", label: "Sourcing", icon: Search },
-  { to: "/inventory", label: "Inventario", icon: Boxes },
-  { to: "/replenishment", label: "Reabastecer", icon: PackagePlus },
-  { to: "/learning", label: "Aprendizaje", icon: BrainCircuit },
-  { to: "/listings", label: "Publicaciones", icon: Store },
-  { to: "/finance", label: "Finanzas", icon: CircleDollarSign },
-  { to: "/data-sources", label: "Fuentes", icon: Database },
+  { to: "/portfolio", label: "Inversiones", icon: PieChart },
+  { to: "/purchases", label: "Operación", icon: Boxes },
+  { to: "/listings", label: "Mercado Libre", icon: Store },
   { to: "/settings", label: "Configuración", icon: Settings },
 ];
 
@@ -32,7 +24,7 @@ export default function AppLayout() {
 
   return <div className="shell">
     <header className="mobile-header">
-      <div className="brand mobile-brand"><div className="brand-mark">M</div><div><strong>MarketOps</strong><span>Commerce Intelligence</span></div></div>
+      <div className="brand mobile-brand"><div className="brand-mark">M</div><div><strong>MarketOps</strong><span>Inteligencia comercial</span></div></div>
       <button className="mobile-menu-button" type="button" aria-label="Abrir menú" onClick={() => setMobileMenuOpen(true)}><Menu size={22}/></button>
     </header>
 
@@ -40,7 +32,7 @@ export default function AppLayout() {
 
     <aside className={mobileMenuOpen ? "sidebar mobile-open" : "sidebar"}>
       <div className="sidebar-header">
-        <div className="brand"><div className="brand-mark">M</div><div><strong>MarketOps</strong><span>Commerce Intelligence</span></div></div>
+        <div className="brand"><div className="brand-mark">M</div><div><strong>MarketOps</strong><span>Inteligencia comercial</span></div></div>
         <button className="mobile-close-button" type="button" aria-label="Cerrar menú" onClick={closeMobileMenu}><X size={21}/></button>
       </div>
 
