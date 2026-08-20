@@ -1,5 +1,6 @@
 import { Boxes, PackagePlus, RefreshCw } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
+import "./OperationsPage.css";
 
 const tabs = [
   { to: "/purchases", label: "Compras", icon: PackagePlus, end: true },
