@@ -4,6 +4,7 @@ import { BarChart3, Boxes, CircleDollarSign, Menu, PieChart, Radar, Settings, St
 import { NavLink, Outlet } from "react-router-dom";
 import { getCapital } from "../../api/marketOpsApi";
 import "./AppLayout.mobile.css";
+import "./AppLayout.compact.css";
 
 const items = [
   { to: "/", label: "Inicio", icon: BarChart3 },
