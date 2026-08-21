@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { BarChart3, Boxes, CircleDollarSign, Menu, PieChart, Radar, Settings, Store, X } from "lucide-react";
+import { BarChart3, Boxes, Menu, PieChart, Radar, Settings, Store, Truck, X } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { getCapital } from "../../api/marketOpsApi";
 import "./AppLayout.mobile.css";
@@ -11,6 +11,7 @@ const items = [
   { to: "/radar", label: "Radar", icon: Radar },
   { to: "/portfolio", label: "Inversiones", icon: PieChart },
   { to: "/purchases", label: "Operación", icon: Boxes },
+  { to: "/suppliers", label: "Proveedores", icon: Truck },
   { to: "/listings", label: "Mercado Libre", icon: Store },
   { to: "/settings", label: "Configuración", icon: Settings },
 ];
